@@ -98,3 +98,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+.idea/compiler.xml
+*.xml
+stock.iml
+.idea/.name
