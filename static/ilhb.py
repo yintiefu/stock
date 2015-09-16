@@ -2,7 +2,6 @@
 __author__ = 'Ellis.yin'
 
 import _PyV8 as pyv8
-
 try:
     from urllib.request import urlopen, Request
 except ImportError:
@@ -15,6 +14,13 @@ LHB_SINA_COLUMNS = ['code', 'buyAmount', 'sellAmount', 'netAmount', 'brokerCode'
 
 
 def get_data(code, date, type):
+    """
+    获取个股龙虎榜买5和卖5
+    :param code: 股票代码
+    :param date: 日期 yyyy-MM-dd
+    :param type: SINA龙虎榜类型
+    :return:
+    """
     if (date is None):
         date = du.today()
     request = Request(LHB_SINA_URL % (code, date, type))
@@ -25,7 +31,6 @@ def get_data(code, date, type):
     ctxt.enter()
     index = text.find('{') - 1
     text = text[index:-1]
-    print(text)
     temp = ctxt.eval(text)
     data = []
     date_columns = ['SYMBOL', 'buyAmount', 'sellAmount', 'netAmount', 'comCode', 'comName']
@@ -54,5 +59,5 @@ if __name__ == "__main__":
     # df.to_sql('lhb_daily_broker',engine,if_exists='append')
     # date = datetime.datetime.strptime('2015-09-13', '%Y-%m-%d');
     # date = datetime.datetime.strptime(str(date), '%Y%m%d')
-    # date = date.strftime('%Y%m%d')
-    # print(df)
+    #date = date.strftime('%Y%m%d')
+    print(df)
