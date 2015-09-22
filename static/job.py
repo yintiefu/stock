@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 
 
-def init_lib_daily():
+def init_lhb_daily():
     engine = create_engine('mysql://root:!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
     for i in range(0, 300, 1):
         s = '2014-08-18'
@@ -23,5 +23,6 @@ def init_lib_daily():
             print fs
 
 
+
 if __name__ == "__main__":
-    init_lib_daily()
+    init_lhb_daily()
