@@ -22,7 +22,17 @@ def init_lhb_daily():
             fs.to_sql('lhb_daily', engine, if_exists='append', index=False)
             print fs
 
+#select lbd.*,lbc.name from lhb_broker_detail lbd right join `lhb_broker_code` lbc on lbd.traderId = lbc.traderId where lbd.`date`='2015-09-24'
+# union select lbd.*,lbc.name from lhb_broker_detail lbd right join `lhb_broker_code` lbc on lbd.traderId = lbc.traderId where lbd.`date`='2015-09-23'
 
+
+def init_lhb_broker_detail():
+    engine = create_engine('mysql://root:ytf19890416!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
+    res = pd.read_sql_query('select * from lhb_broker_code where cat_id=1',engine)
+    for traderId in res['traderId']:
+        df = ilhb.lhb_trader_detail(traderId)
+        df.to_sql('lhb_broker_detail', engine, if_exists='append', index=False)
+        print df
 
 if __name__ == "__main__":
-    init_lhb_daily()
+    init_lhb_broker_detail()

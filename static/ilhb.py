@@ -49,7 +49,7 @@ def lhb_trader_statistic():
     return df
 
 
-def lhb_trader_detail(traderId):
+def lhb_trader_detail(traderId, date=None):
     request = Request(LHB_EASTMONEY_BROKER_DETAIL_URL % (traderId))
     text = urlopen(request, timeout=10).read()
     text = text.decode('GBK')
@@ -67,9 +67,14 @@ def lhb_trader_detail(traderId):
     df.columns = LHB_EASTMONEY_BROKER_DETAIL_COLS
     df['sellAmount'] = df['sellAmount'].map(lambda x: 0 if x == '-' else x)
     df['code'] = df['code'].map(lambda x: str(x).zfill(6))
+    df['traderId'] = traderId
+    if (date is not None):
+        cf = df[df['date'] == date]
+    else:
+        cf = df
     # for t in detail_html:
     # print t.attrib['href']
-    return df
+    return cf
 
 
 def lhb_daily_detail(code, date, type):
@@ -132,7 +137,7 @@ if __name__ == "__main__":
     # df = lhb_daily('2015-09-23')
     # df = ts.inst_detail()
     # df = lhb_daily_detail('000977', '2015-09-11', '01')
-    df = lhb_trader_detail('80032107')
+    df = lhb_trader_detail('80032107', date=None)
     # df['type'] = 1
     # data = np.random.rand(6,4)
     # clos = ['code','name','type','index','date','broker','bamount','samount']
