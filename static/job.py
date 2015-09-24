@@ -19,7 +19,7 @@ def init_lhb_daily():
             print('%s非交易日' % str(date))
             pass
         else:
-            fs.to_sql('lhb_daily', engine, if_exists='append')
+            fs.to_sql('lhb_daily', engine, if_exists='append', index=False)
             print fs
 
 
