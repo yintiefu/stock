@@ -141,7 +141,7 @@ if __name__ == "__main__":
     # df['type'] = 1
     # data = np.random.rand(6,4)
     # clos = ['code','name','type','index','date','broker','bamount','samount']
-    # engine = create_engine('mysql://root:ytf19890416!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
+    # engine = create_engine()
     # df.to_sql('lhb_broker_detail', engine, if_exists='append', index=False)
     # date = datetime.datetime.strptime('2015-09-13', '%Y-%m-%d');
     # date = datetime.datetime.strptime(str(date), '%Y%m%d')

@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def init_lhb_daily():
-    engine = create_engine('mysql://root:!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
+    engine = create_engine('')
     for i in range(0, 300, 1):
         s = '2014-08-18'
         today = datetime.datetime.strptime(s, '%Y-%m-%d').date()
@@ -27,10 +27,11 @@ def init_lhb_daily():
 
 
 def init_lhb_broker_detail():
-    engine = create_engine('mysql://root:ytf19890416!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
+    engine = create_engine('')
     res = pd.read_sql_query('select * from lhb_broker_code where cat_id=1',engine)
     for traderId in res['traderId']:
-        df = ilhb.lhb_trader_detail(traderId)
+        date = '2015-10-27'
+        df = ilhb.lhb_trader_detail(traderId,date)
         df.to_sql('lhb_broker_detail', engine, if_exists='append', index=False)
         print df
 
