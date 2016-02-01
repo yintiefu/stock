@@ -20,7 +20,7 @@ import ilhb
 # print x, y, z
 zxb = ts.get_sme_classified()
 engine = create_engine('mysql://root:password!@55e4043822731.gz.cdb.myqcloud.com:5073/stock?charset=utf8')
-sql = 'INSERT INTO five_minue_data(code,date,t_3_00,t_2_55,t_2_50,t_2_45,t_2_40,t_2_35) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)'
+sql = "INSERT INTO five_minute_data(code,date,t_3_00,t_2_55,t_2_50,t_2_45,t_2_40,t_2_35) VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"
 for code in zxb['code']:
     connection = engine.connect()
     df = ts.get_hist_data(code, start='2016-01-29', end='2016-01-30', ktype='5')
@@ -37,4 +37,6 @@ for code in zxb['code']:
         t_2_45 = df['p_change'][3]
         t_2_40 = df['p_change'][4]
         t_2_35 = df['p_change'][5]
-        sql % (code, date, t_3_00, t_2_55, t_2_50, t_2_45, t_2_40, t_2_35)
+        # sql % (code, date, t_3_00, t_2_55, t_2_50, t_2_45, t_2_40, t_2_35)
+        connection.execute(sql % (code, date, t_3_00, t_2_55, t_2_50, t_2_45, t_2_40, t_2_35))
+    connection.close()
